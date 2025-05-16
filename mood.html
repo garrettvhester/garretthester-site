@@ -83,13 +83,16 @@
       transition: box-shadow 0.25s;
     }
     .carousel-image {
-      width: 90%;
-      max-width: 220px;
-      max-height: 170px;
-      object-fit: cover;
-      border-radius: 6px;
+      width: 140px;
+      height: 140px;
+      object-fit: contain;          /* fixes the cropping */
+      background: #181818;
+      border-radius: 12px;
       margin-bottom: 1em;
       box-shadow: 0 0 16px #222d;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
     .carousel-title {
       font-weight: bold;
