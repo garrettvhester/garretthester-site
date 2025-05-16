@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing Tools | Garrett Hester</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      background: url("nemesis.png") no-repeat center center fixed;
+      background-size: cover;
+      color: #f0f0f0;
+    }
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 1rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      z-index: 1000;
+      gap: 1rem;
+    }
+    .logo {
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: linear-gradient(to right, #ccc, #999);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    }
+    .menu-toggle {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .menu {
+      display: none;
+      position: absolute;
+      left: 1rem;
+      top: 60px;
+      background-color: rgba(0, 0, 0, 0.95);
+      border: 1px solid #444;
+      border-radius: 5px;
+      padding: 0.5rem;
+    }
+    .menu a {
+      display: block;
+      padding: 0.5rem;
+      color: #f0f0f0;
+      text-decoration: none;
+    }
+    .menu a:hover {
+      background-color: #222;
+    }
+    .content {
+      background-color: rgba(0,0,0,0.75);
+      padding: 2rem;
+      max-width: 700px;
+      width: 90%;
+      margin: 6rem auto;
+      border-radius: 10px;
+      box-shadow: inset 0 0 10px rgba(255,255,255,0.1), 0 0 0 2px rgba(200,200,200,0.2), 0 0 10px rgba(255,255,255,0.15);
+      border: 1px solid rgba(180, 180, 180, 0.3);
+      white-space: normal; line-height: 1.7;
+    }
+    .tools-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+      margin-bottom: 2em;
+    }
+    .tool-item {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+    }
+    .tool-item img {
+      width: auto; height: 32px;
+    }
+    .moodboard-section {
+      margin-top: 2.5em;
+      text-align: center;
+    }
+    .moodboard-btn {
+      background: #222;
+      color: #fff;
+      border: 1px solid #888;
+      border-radius: 24px;
+      padding: 0.7em 2em;
+      font-size: 1.1em;
+      margin-top: 1em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .moodboard-btn:hover {
+      background: #444;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+    <div class="logo">Garrett Hester</div>
+    <div class="menu" id="menu">
+      <a href="index.html">Home</a>
+      <a href="sample.html">Story Teaser</a>
+      <a href="tools.html">Writing Tools</a>
+      <a href="fun.html">Fun Stuff</a>
+      <a href="ai.html">Generative AI Statement</a>
+    </div>
+  </header>
+  <div class="content">
+    <h1>Writing Tools</h1>
+    <div class="tools-list">
+      <div class="tool-item">
+        <img src="google-docs-icon.png" alt="Google Docs Icon">
+        <span>
+          I write almost exclusively in <a href="https://docs.google.com/" target="_blank" style="color:#8ab4f8;">Google Docs</a>.
+        </span>
+      </div>
+      <div class="tool-item">
+        <img src="thesaurus-icon.png" alt="Thesaurus.com Icon">
+        <span>
+          <a href="https://www.thesaurus.com/" target="_blank" style="color:#8ab4f8;">Thesaurus.com</a> is a tool I use daily.
+        </span>
+      </div>
+      <div class="tool-item">
+        <img src="white-monster.png" alt="White Monster Icon" style="border-radius:8px;">
+        <span>
+          The wind beneath my wings, the fuel in my tank, <span style="font-weight:bold;">White Monster</span>.
+          <br><em style="font-size:0.95em; color:#9fdd67;">(Affiliate link coming soon!)</em>
+        </span>
+      </div>
+      <!-- Add other tools as you wish -->
+    </div>
+    <div class="moodboard-section">
+      <h2 style="margin-bottom:0.5em;">Moodboards</h2>
+      <p>
+        Moodboards are incredibly helpful with any creative endeavor. I use music primarily—not while writing, but in the spaces between sessions to keep me anchored in the story's atmosphere.
+      </p>
+      <button class="moodboard-btn" onclick="window.location.href='mood.html';">
+        View the <strong>Nadir</strong> Moodboard
+      </button>
+    </div>
+  </div>
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>

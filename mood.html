@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nadir Moodboard | Garrett Hester</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      background: url("nemesis.png") no-repeat center center fixed;
+      background-size: cover;
+      color: #f0f0f0;
+    }
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 1rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      z-index: 1000;
+      gap: 1rem;
+    }
+    .logo {
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: linear-gradient(to right, #ccc, #999);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    }
+    .menu-toggle {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .menu {
+      display: none;
+      position: absolute;
+      left: 1rem;
+      top: 60px;
+      background-color: rgba(0, 0, 0, 0.95);
+      border: 1px solid #444;
+      border-radius: 5px;
+      padding: 0.5rem;
+    }
+    .menu a {
+      display: block;
+      padding: 0.5rem;
+      color: #f0f0f0;
+      text-decoration: none;
+    }
+    .menu a:hover {
+      background-color: #222;
+    }
+    .content {
+      background-color: rgba(0,0,0,0.8);
+      padding: 2rem;
+      max-width: 600px;
+      width: 96%;
+      margin: 6rem auto 2rem auto;
+      border-radius: 12px;
+      box-shadow: 0 0 20px 3px rgba(50, 50, 50, 0.2);
+      border: 1px solid rgba(180,180,180,0.18);
+      white-space: normal; line-height: 1.7;
+    }
+
+    .carousel {
+      margin: 2.5em auto 1.2em auto;
+      width: 100%;
+      max-width: 410px;
+      background: rgba(30,30,30,0.95);
+      border-radius: 12px;
+      box-shadow: 0 2px 12px 0 rgba(0,0,0,0.25);
+      padding: 1.3em 1.2em;
+      text-align: center;
+      position: relative;
+      min-height: 340px;
+      transition: box-shadow 0.25s;
+    }
+    .carousel-image {
+      width: 90%;
+      max-width: 220px;
+      max-height: 170px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 1em;
+      box-shadow: 0 0 16px #222d;
+    }
+    .carousel-title {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-bottom: 0.2em;
+      color: #9fdd67;
+      letter-spacing: 0.02em;
+    }
+    .carousel-desc {
+      font-size: 1.02em;
+      color: #e5e5e5;
+      margin-bottom: 1.2em;
+      min-height: 3.5em;
+      transition: opacity 0.4s;
+    }
+    .carousel-btns {
+      display: flex;
+      justify-content: center;
+      gap: 2em;
+      margin-top: 1.1em;
+    }
+    .carousel-btn {
+      background: #222;
+      color: #fff;
+      border: 1px solid #888;
+      border-radius: 18px;
+      padding: 0.5em 1.5em;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+    .carousel-btn:hover {
+      background: #444;
+      color: #9fdd67;
+    }
+    .carousel.fade-out {
+      opacity: 0;
+      transform: scale(0.97) rotateY(12deg);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .carousel.fade-in {
+      opacity: 1;
+      transform: scale(1) rotateY(0deg);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .music-embed {
+      margin-top: 2.8em;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5em;
+      justify-content: center;
+    }
+    .embed-col {
+      flex: 1 1 350px;
+      max-width: 700px;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .embed-title {
+      font-size: 1.08em;
+      font-weight: bold;
+      margin-bottom: 0.7em;
+      color: #9fdd67;
+      letter-spacing: 0.03em;
+    }
+    @media (max-width: 700px) {
+      .content { padding: 0.6rem; }
+      .carousel { max-width: 98vw; min-height: 320px; }
+      .carousel-image { max-width: 100%; }
+      .music-embed { gap: 1.2em; }
+    }
+    @media (max-width: 500px) {
+      .carousel { min-height: 260px; }
+      .embed-col { min-width: 170px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+    <div class="logo">Garrett Hester</div>
+    <div class="menu" id="menu">
+      <a href="index.html">Home</a>
+      <a href="sample.html">Story Teaser</a>
+      <a href="tools.html">Writing Tools</a>
+      <a href="fun.html">Fun Stuff</a>
+      <a href="ai.html">Generative AI Statement</a>
+    </div>
+  </header>
+  <div class="content">
+    <h1>Nadir Moodboard</h1>
+    <p>
+      Visual and sonic touchstones for <em>Nadir</em>. These are the albums and tracks that shaped the novel’s psychological core and atmosphere. Use these to step inside the world—or at least, the headspace—of Veyr.
+    </p>
+    <div id="carousel" class="carousel">
+      <img id="carousel-image" class="carousel-image" src="amenra-solitary-reign.jpg" alt="Album Cover">
+      <div id="carousel-title" class="carousel-title">Amenra — A Solitary Reign</div>
+      <div id="carousel-desc" class="carousel-desc">
+        The emotional “center” of Avander’s arc. Sorrow, defiance, and catharsis.
+      </div>
+      <div class="carousel-btns">
+        <button class="carousel-btn" onclick="prevSong()">&#8592; Prev</button>
+        <button class="carousel-btn" onclick="nextSong()">Next &#8594;</button>
+      </div>
+    </div>
+    <div class="music-embed">
+      <div class="embed-col">
+        <div class="embed-title">Spotify Playlist</div>
+        <iframe style="border-radius:12px; width:100%; max-width:400px;" src="https://open.spotify.com/embed/playlist/4BKPVTCauc58Duu9yO0EPu?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+      <div class="embed-col">
+        <div class="embed-title">Tidal Playlist</div>
+        <iframe src="https://embed.tidal.com/playlists/fc4d579f-098c-4425-bce9-a5162ba3e534" width="100%" height="352" allow="encrypted-media" sandbox="allow-same-origin allow-scripts allow-forms allow-popups" title="TIDAL Embed Player" style="border-radius:10px; max-width:400px;"></iframe>
+      </div>
+    </div>
+  </div>
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // --- SONG DATA ---
+    const songs = [
+      {
+        image: "amenra.jpg",
+        title: "Amenra — A Solitary Reign",
+        desc: "The emotional “center” of Avander’s arc. This song is Nadir. Sorrow, defiance, and catharsis."
+      },
+      {
+        image: "blood-incantation-io.jpg",
+        title: "Blood Incantation — Io: Fourth Movement",
+        desc: "Meditative, cosmic. The sound of drifting through the Medivoid."
+      },
+      {
+        image: "the-caretaker-r1.jpg",
+        title: "The Caretaker — R1 Stage 6 Place in the World fades away",
+        desc: "Specifically the end of this. The sound of spirits returning to the Inner Light and merging with the Oversoul."
+      },
+      {
+        image: "crowbar.jpg",
+        title: "Crowbar — Existence is Punishment",
+        desc: "The raw, bitter turmoil within Avander."
+      },
+      {
+        image: "yob.jpg",
+        title: "Yob — Prepare the Ground",
+        desc: "The sound of clashing Chosen."
+      }
+    ];
+
+    let current = 0;
+    function showSong(idx, animate = true) {
+      const carousel = document.getElementById('carousel');
+      if (animate) {
+        carousel.classList.remove('fade-in');
+        carousel.classList.add('fade-out');
+        setTimeout(() => {
+          doShow();
+          carousel.classList.remove('fade-out');
+          carousel.classList.add('fade-in');
+        }, 400);
+      } else {
+        doShow();
+      }
+      function doShow() {
+        document.getElementById('carousel-image').src = songs[idx].image;
+        document.getElementById('carousel-image').alt = songs[idx].title;
+        document.getElementById('carousel-title').textContent = songs[idx].title;
+        document.getElementById('carousel-desc').textContent = songs[idx].desc;
+      }
+    }
+    function nextSong() {
+      current = (current + 1) % songs.length;
+      showSong(current);
+    }
+    function prevSong() {
+      current = (current - 1 + songs.length) % songs.length;
+      showSong(current);
+    }
+    // Optional: auto-advance every 10s
+    // setInterval(nextSong, 10000);
+
+    // Initial state:
+    showSong(current, false);
+  </script>
+</body>
+</html>

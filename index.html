@@ -3,88 +3,200 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Garrett Hester | Author of Nadir</title>
+  <title>Garrett Hester — Author of Nadir</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Georgia', serif;
-      background: url("nemesis.jpg") no-repeat center center fixed;
+      background: url("nemesis.png") no-repeat center center fixed;
       background-size: cover;
       color: #f0f0f0;
+    }
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 1rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      z-index: 1000;
+      gap: 1rem;
+    }
+    .logo {
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: linear-gradient(to right, #ccc, #999);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    }
+    .menu-toggle {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .menu {
+      display: none;
+      position: absolute;
+      left: 1rem;
+      top: 60px;
+      background-color: rgba(0, 0, 0, 0.95);
+      border: 1px solid #444;
+      border-radius: 5px;
+      padding: 0.5rem;
+    }
+    .menu a {
+      display: block;
+      padding: 0.5rem;
+      color: #f0f0f0;
+      text-decoration: none;
+    }
+    .menu a:hover {
+      background-color: #222;
+    }
+    .content {
+      background-color: rgba(0,0,0,0.77);
+      padding: 2.2rem 2rem;
+      max-width: 700px;
+      width: 92%;
+      margin: 6rem auto 2rem auto;
+      border-radius: 12px;
+      box-shadow: 0 0 20px 3px rgba(50, 50, 50, 0.2);
+      border: 1px solid rgba(180,180,180,0.18);
+      white-space: normal; line-height: 1.7;
+    }
+    .headshot-container {
+      width: 180px;
+      height: 220px;
+      margin: 0 auto 1.2em auto;
       text-align: center;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      backdrop-filter: brightness(0.75);
     }
-
-    .content {
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 2rem;
-      max-width: 800px;
-      margin: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    .headshot-img {
+      width: 180px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 50% / 56%; /* Elliptical shape */
+      border: 2.5px solid #b0b0b0;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.37);
+      background: #222;
+      filter: grayscale(0.07) brightness(1.05) contrast(1.05);
     }
-
-    img.headshot {
-      max-width: 180px;
-      border-radius: 50%;
-      margin-bottom: 1rem;
-      border: 2px solid #888;
-    }
-
     h1 {
-      font-size: 2.2rem;
-      margin-bottom: 0.5rem;
+      font-size: 2em;
+      text-align: left;
+      margin-bottom: 0.5em;
+      color: #f5f5f5;     /* Solid light color */
+      text-shadow: 1px 1px 2px #000;
+      letter-spacing: 0.03em;
+      background: none;
+      -webkit-background-clip: initial;
+      -webkit-text-fill-color: initial;
     }
-
-    em {
-      font-style: italic;
+    .bio {
+      margin-bottom: 2.2em;
+      font-size: 1.11em;
     }
-
-    p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin: 1rem 0;
+    .connect-header {
+      margin-top: 2.7em;
+      font-size: 1.16em;
+      color: #fff;
+      font-weight: bold;
+      letter-spacing: 0.04em;
     }
-
+    .socials-row {
+      margin-top: 1.2em;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.6em;
+      align-items: center;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6em;
+      color: #e0e0e0;
+      font-size: 1.07em;
+      text-decoration: none;
+      padding: 0.5em 1.2em;
+      border-radius: 28px;
+      border: 1px solid #777;
+      background: rgba(36,36,36,0.82);
+      transition: background 0.17s, border 0.17s, color 0.17s;
+    }
+    .social-link:hover {
+      background: #222;
+      border: 1.5px solid #bbb;
+      color: #fff;
+    }
+    .social-icon {
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      vertical-align: middle;
+      filter: grayscale(0.5) brightness(1.13);
+    }
     @media (max-width: 600px) {
-      .content {
-        padding: 1rem;
-      }
-
-      h1 {
-        font-size: 1.6rem;
-      }
-
-      p {
-        font-size: 1rem;
-      }
+      .content { padding: 1rem 0.2rem; }
+      .socials-row { flex-direction: column; gap: 0.8em; }
+      .social-link { padding: 0.6em 0.8em; }
+      .headshot-container { width: 92px; height: 115px;}
+      .headshot-img { width: 92px; height: 115px; }
     }
   </style>
 </head>
 <body>
+  <header>
+    <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+    <div class="logo">Garrett Hester</div>
+    <div class="menu" id="menu">
+      <a href="index.html">Home</a>
+      <a href="sample.html">Story Teaser</a>
+      <a href="tools.html">Writing Tools</a>
+      <a href="fun.html">Fun Stuff</a>
+      <a href="ai.html">Generative AI Statement</a>
+    </div>
+  </header>
   <div class="content">
-    <img src="gamers.jpg" alt="Garrett Hester headshot" class="headshot" />
+    <div class="headshot-container">
+      <img src="gamers.jpg" alt="Garrett Hester portrait" class="headshot-img" />
+    </div>
     <h1>Garrett Hester</h1>
-    <p><em>Author of the forthcoming dark fantasy novel <strong>Nadir</strong></em></p>
+    <div class="bio">
+      Author of the forthcoming dark fantasy novel <em>Nadir</em>.<br><br>
+      <em>Nadir</em> is a gripping descent narrative that channels the gravitas of Greek tragedy through the stark, unflinching lens of modern grimdark.<br><br>
+      <em>Nadir</em> explores themes of vengeance, self-destruction, and agency versus determinism with mythic heft and literary precision. Veyr is a world anchored by stone gods—the ontological pillars of existence. Each takes a Chosen: a mortal imbued with the power of their divine domain. At the center of the tale is Avander, a fallen prince who loses everything and would burn the world to restore the last gleaming star in his life.<br><br>
+      The novel combines philosophical depth with visceral horror, marrying a recursive symbolic structure with clear, intentional prose and reverent subversion of genre tropes. Rather than obfuscation, <em>Nadir</em> seeks resonance through emotional honesty and psychological insight—a work written to be felt first, understood second, and remembered long afterward.<br><br>
+      For readers who appreciate the mythic symbolism of Wolfe, the unflinching violence of McCarthy, the psychological intimacy of Muir, or the existential horror of Lostetter, <em>Nadir</em> offers a new descent.<br><br>
+      Although Garrett has completed other manuscripts, <em>Nadir</em> will be his publishing debut.
+    </div>
 
-    <p>
-      <strong>Nadir</strong> is a gripping descent narrative that channels the gravitas of Greek tragedy through the stark, unflinching lens of modern grimdark.
-    </p>
-    <p>
-      <strong>Nadir</strong> explores themes of vengeance, self-destruction, and agency versus determinism with mythic heft and literary precision. Veyr is a world anchored by stone gods—the ontological pillars of existence. Each takes a Chosen: a mortal imbued with the power of their divine domain. At the center of the tale is Avander, a fallen prince who loses everything and would burn the world to restore the last gleaming star in his life.
-    </p>
-    <p>
-      The novel combines philosophical depth with visceral horror, marrying a recursive symbolic structure with clear, intentional prose. Rather than obfuscation, <strong>Nadir</strong> seeks resonance through emotional honesty and psychological insight—a work written to be felt first, understood second, and remembered long afterward.
-    </p>
-    <p>
-      Although Garrett has completed other manuscripts, <strong>Nadir</strong> will be his publishing debut.
-    </p>
+    <div class="connect-header">Connect with the Author</div>
+    <div class="socials-row">
+      <a class="social-link" href="mailto:contact@garretthester.ink">
+        <img src="mail-icon.png" alt="Email" class="social-icon"> Email
+      </a>
+      <a class="social-link" href="https://www.facebook.com/share/1BUh49LDCA/" target="_blank">
+        <img src="facebook-icon.png" alt="Facebook" class="social-icon"> Facebook
+      </a>
+      <a class="social-link" href="https://www.youtube.com/@GarrettHesterWrites" target="_blank">
+        <img src="youtube-icon.png" alt="YouTube" class="social-icon"> YouTube
+      </a>
+      <a class="social-link" href="https://discord.gg/xtdfvWNxEk" target="_blank">
+        <img src="discord-icon.png" alt="Discord" class="social-icon"> Discord
+      </a>
+    </div>
   </div>
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
 </body>
 </html>
