@@ -103,7 +103,7 @@
       margin-top: 1rem;
       font-weight: bold;
     }
-      .generator {
+    .generator {
       text-align: center;
       margin: 3rem 0;
       padding: 2rem;
@@ -122,10 +122,17 @@
       font-family: 'Papyrus', 'Georgia', serif;
     }
 
+    .generator:nth-of-type(3) {
+      background: rgba(0,40,100, 0.12);
+      border: 1px solid rgba(120,170,255,0.17);
+      box-shadow: 0 0 10px rgba(60,120,255,0.1);
+      font-family: 'Georgia', serif;
+    }
+
     .flame-glow {
       text-shadow: 0 0 8px red;
     }
-</style>
+  </style>
 </head>
 <body>
   <header>
@@ -133,7 +140,8 @@
     <div class="logo">Garrett Hester</div>
     <div class="menu" id="menu">
       <a href="index.html">Home</a>
-      <a href="sample.html">Prose Sample</a>
+      <a href="sample.html">Story Teaser</a>
+      <a href="tools.html">Writing Tools</a>
       <a href="fun.html">Fun Stuff</a>
       <a href="ai.html">Generative AI Statement</a>
     </div>
@@ -154,54 +162,42 @@
       <button onclick="generateCampaign()">Generate Campaign</button>
       <div class="output" id="campaignResult" style="min-height: 6em; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;"></div>
     </div>
+    <div class="generator">
+      <h2>Fantasy Character Generator</h2>
+      <p>Generates a fantasy character (race, class, quest) using recursive random tables. Great for NPCs, prompts, or weird party members.</p>
+      <button onclick="generateFantasyCharacter()">Generate Character</button>
+      <div class="output" id="fantasyCharacterResult" style="min-height: 3em; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;"></div>
+    </div>
   </div>
 
   <script>
-    const descriptors = [
-  "Candle", "Black", "Acid", "Electric", "Bong", "Weed", "Death", "Shrouded", "Dark", "Abyssal",
-  "Dead", "Witch", "Burning", "Doom", "Goat", "Mournful", "Skull", "The", "Wolf", "Ancient",
-  "Evil", "Awakened", "Holy", "Hallowed", "Eternal", "Ethereal", "Dying", "Forgotten", "Demon", "Devil",
-  "Thunder", "Silent", "Wicked", "Esoteric", "Arcane", "Magic", "Elder", "Diabolical", "Smoke", "Crumbling",
-  "Forsaken", "Condemned", "Karmic", "Vanquished", "Blind", "Hateful", "Hated", "Avenging", "Vile", "Abhorrent",
-  "Pungent", "Dank", "Acrid", "Summoned", "Banished", "Cursed", "Accursed", "Infernal", "Grey", "Grievous",
-  "Dire", "Immortal", "Perpetual", "Ageless", "Boundless", "Sinister", "Grave", "Spirit", "Priest", "Leaf",
-  "Baleful", "Ominous", "Tenebrous", "Stygian", "Desolate", "Hell", "War", "Demented", "Paranoid", "Sky",
-  "Frost", "Stone", "Cloud", "Storm", "Vampiric", "Legendary", "Drowned", "Tortured", "Cyclopean", "Mythic",
-  "Cosmic", "Eldritch", "Blood", "Forbidden", "Dungeon", "Blasphemous", "Ravaged", "Twisted", "Profane", "Antediluvian",
-  "Purifying", "Unholy", "Obscene", "Temporal", "Carnal", "Earthly", "Celestial", "Pagan", "Maimed", "Colossal",
-  "Heretical", "Grand", "Foul", "Vulgar", "Cruel", "Corrupted", "Unfathomable", "Psychic", "Crimson", "Wretched",
-  "Midnight", "Ancestral", "Apathetic", "Living", "Dread", "Chaos", "Crystal", "Frozen", "Madness", "Prophetic",
-  "Rising", "Arisen", "Dope", "Wind", "Pot", "Phantom"
-];
-    const titles = [
-  "Witch", "Candle", "King", "Wizard", "Lord", "Throne", "Funeral", "Goblin", "Rider", "Mystic",
-  "Sorcerer", "Sword", "Void", "Skull", "Saint", "Congregation", "Planet", "Banner", "Tomb", "Burial",
-  "Mass", "Sorrow", "Voice", "Ghost", "Soul", "Shadow", "Devil", "Demon", "Shrine", "Dream",
-  "Prophecy", "Hand", "Fist", "Lair", "Misery", "Warlock", "Shaman", "Conjurer", "Magic", "Hermit",
-  "Flame", "Fire", "Torch", "Elder", "Ghoul", "Spirit", "Incantation", "Blood", "Rune", "Smoke",
-  "Kingdom", "Tower", "Torment", "Agony", "Despair", "Woe", "Suffering", "Demise", "Annihilation", "Judgement",
-  "Verdict", "Conqueror", "Sentinel", "Guardian", "Legacy", "Quest", "Relic", "Axe", "Hammer", "Desire",
-  "Creation", "Wrath", "Wraith", "Priest", "Cleric", "Grave", "Hell", "Children", "Nightmare", "World",
-  "Knight", "Night", "Darkness", "Temple", "Dragon", "Harpy", "Giant", "Clouds", "Storm", "Lich",
-  "Nymph", "Satyr", "Siren", "Djinn", "Legend", "Barbarian", "Legion", "Torturer", "Inquisitor", "Warrior",
-  "Druid", "Ranger", "Alchemy", "Oracle", "Summoner", "Revenant", "Seer", "Dungeon", "Labyrinth", "Blade",
-  "Spear", "Blasphemy", "Ruins", "Idol", "Altar", "Beacon", "Scourge", "Affliction", "Colossus", "Heresy",
-  "Heretic", "Leviathan", "Mammoth", "Behemoth", "Master", "Debauchery", "Cough", "Fathoms", "Chant", "Mantra",
-  "Serpent", "Aeons", "Sacrifice", "Offering", "Ancestor", "Apathy", "Assassin", "Omen", "Bullet", "Potion",
-  "Tome", "Secrets", "Crown", "Crystal", "Realm", "Madness", "Reprisal", "Concubine", "Emperor", "Empress",
-  "Resin", "Totem", "Rip", "Ripper", "Wind", "Pot", "Vessel", "Mountain", "Phantom"
-];
-
-    function generateBandName() {
-  const d = descriptors[Math.floor(Math.random() * descriptors.length)];
-  const t = titles[Math.floor(Math.random() * titles.length)];
-  const output = document.getElementById('bandName');
-  const colors = ['red', 'orange', 'yellow', 'blue'];
-  const glow = colors[Math.floor(Math.random() * colors.length)];
-  output.textContent = `${d} ${t}`;
-  output.style.textShadow = `0 0 10px ${glow}, 0 0 20px ${glow}`;
+    // Hamburger menu logic
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
     }
-    const youAre = ["You are explorers", "You are a team of researchers", "You are bounty hunters", "You are werecreatures", "You are a group of undead", "You are hunters", "You are a group of circus performers", "You are a group of travelers who chanced to meet on the road", "You are the villains", "You are time travelers", "You are a group of knights and their retinue", "You are detectives", "You are soldiers", "You are mercenaries", "You are bandits", "You are one big family", "You are a musical troupe", "You are thieves", "You are dragon slayers", "You are pirates", "You are sailors", "You are merchants", "You are celebrities", "You are a monarch and their retinue", "You are a group of drinking buddies", "You are members of the clergy", "You are a dream team of talented individuals", "You are treasure hunters", "You are cultists", "You are rebels", "You are slaves", "You are escaped asylum patients", "You are reformed villains", "You are friendly monsters", "You are the sole survivors of a terrible tragedy", "You are ghost hunters", "You are nomads", "You are exiles", "You are former adventurers back out of retirement", "You are clones of important people", "You are witch hunters", "You are anarchists", "You are children who ran away from home", "You are a school class on a field trip", "You are inquisitors", "You are mages", "You are archaeologists", "You are ghosts", "You are edgy teens", "You are bored trust fund kids", "You are a group of sentient objects", "You are simple tradesmen fallen on hard times", "You are drug and/or alcohol addicts", "You are a displaced inkeeper and staff", "You are androids", "You are constructs", "You are interplanar castaways", "You are smugglers", "You are immortal beings", "You are commoners disguised as nobles", "You are gamblers", "You are wanted criminals", "You are orphans", "You are beggars", "You are military deserters", "You are assassins", "You are crusaders", "You are healers", "You are prostitutes", "You are prophets", "You are duelists", "You are brawlers", "You are dragons that have taken another form", "You are crooked cops", "You are yogis", "You are monks", "You are grave robbers", "You are dwarves", "You are shapeshifters", "You are cartographers", "You are lizardfolk", "You are spies", "You are followers of a very obscure religion", "You are antique collectors", "You are caravaners", "You are merchants", "You are a professional sports team", "You are psychics", "You are sentient animals", "You are demons", "You are aliens", "You are gargoyles", "You are permanently invisible", "You are comedians", "You are animal tamers", "You are nobles disguised as commoners", "You are murderers", "You are heretics", "You are angels", "You are gods"];
+    window.addEventListener('click', function(event) {
+      const menu = document.getElementById('menu');
+      if (menu && event.target.closest('.menu-toggle') == null && event.target.closest('.menu') == null) {
+        menu.style.display = 'none';
+      }
+    });
+
+    // Doom Metal Band Name Generator
+    const descriptors = [/* ...your array... */"Candle", "Black", "Acid", "Electric", "Bong", "Weed", "Death", "Shrouded", "Dark", "Abyssal", "Dead", "Witch", "Burning", "Doom", "Goat", "Mournful", "Skull", "The", "Wolf", "Ancient", "Evil", "Awakened", "Holy", "Hallowed", "Eternal", "Ethereal", "Dying", "Forgotten", "Demon", "Devil", "Thunder", "Silent", "Wicked", "Esoteric", "Arcane", "Magic", "Elder", "Diabolical", "Smoke", "Crumbling", "Forsaken", "Condemned", "Karmic", "Vanquished", "Blind", "Hateful", "Hated", "Avenging", "Vile", "Abhorrent", "Pungent", "Dank", "Acrid", "Summoned", "Banished", "Cursed", "Accursed", "Infernal", "Grey", "Grievous", "Dire", "Immortal", "Perpetual", "Ageless", "Boundless", "Sinister", "Grave", "Spirit", "Priest", "Leaf", "Baleful", "Ominous", "Tenebrous", "Stygian", "Desolate", "Hell", "War", "Demented", "Paranoid", "Sky", "Frost", "Stone", "Cloud", "Storm", "Vampiric", "Legendary", "Drowned", "Tortured", "Cyclopean", "Mythic", "Cosmic", "Eldritch", "Blood", "Forbidden", "Dungeon", "Blasphemous", "Ravaged", "Twisted", "Profane", "Antediluvian", "Purifying", "Unholy", "Obscene", "Temporal", "Carnal", "Earthly", "Celestial", "Pagan", "Maimed", "Colossal", "Heretical", "Grand", "Foul", "Vulgar", "Cruel", "Corrupted", "Unfathomable", "Psychic", "Crimson", "Wretched", "Midnight", "Ancestral", "Apathetic", "Living", "Dread", "Chaos", "Crystal", "Frozen", "Madness", "Prophetic", "Rising", "Arisen", "Dope", "Wind", "Pot", "Phantom"];
+    const titles = [/* ...your array... */"Witch", "Candle", "King", "Wizard", "Lord", "Throne", "Funeral", "Goblin", "Rider", "Mystic", "Sorcerer", "Sword", "Void", "Skull", "Saint", "Congregation", "Planet", "Banner", "Tomb", "Burial", "Mass", "Sorrow", "Voice", "Ghost", "Soul", "Shadow", "Devil", "Demon", "Shrine", "Dream", "Prophecy", "Hand", "Fist", "Lair", "Misery", "Warlock", "Shaman", "Conjurer", "Magic", "Hermit", "Flame", "Fire", "Torch", "Elder", "Ghoul", "Spirit", "Incantation", "Blood", "Rune", "Smoke", "Kingdom", "Tower", "Torment", "Agony", "Despair", "Woe", "Suffering", "Demise", "Annihilation", "Judgement", "Verdict", "Conqueror", "Sentinel", "Guardian", "Legacy", "Quest", "Relic", "Axe", "Hammer", "Desire", "Creation", "Wrath", "Wraith", "Priest", "Cleric", "Grave", "Hell", "Children", "Nightmare", "World", "Knight", "Night", "Darkness", "Temple", "Dragon", "Harpy", "Giant", "Clouds", "Storm", "Lich", "Nymph", "Satyr", "Siren", "Djinn", "Legend", "Barbarian", "Legion", "Torturer", "Inquisitor", "Warrior", "Druid", "Ranger", "Alchemy", "Oracle", "Summoner", "Revenant", "Seer", "Dungeon", "Labyrinth", "Blade", "Spear", "Blasphemy", "Ruins", "Idol", "Altar", "Beacon", "Scourge", "Affliction", "Colossus", "Heresy", "Heretic", "Leviathan", "Mammoth", "Behemoth", "Master", "Debauchery", "Cough", "Fathoms", "Chant", "Mantra", "Serpent", "Aeons", "Sacrifice", "Offering", "Ancestor", "Apathy", "Assassin", "Omen", "Bullet", "Potion", "Tome", "Secrets", "Crown", "Crystal", "Realm", "Madness", "Reprisal", "Concubine", "Emperor", "Empress", "Resin", "Totem", "Rip", "Ripper", "Wind", "Pot", "Vessel", "Mountain", "Phantom"];
+    function generateBandName() {
+      const d = descriptors[Math.floor(Math.random() * descriptors.length)];
+      const t = titles[Math.floor(Math.random() * titles.length)];
+      const output = document.getElementById('bandName');
+      const colors = ['red', 'orange', 'yellow', 'blue'];
+      const glow = colors[Math.floor(Math.random() * colors.length)];
+      output.textContent = `${d} ${t}`;
+      output.style.textShadow = `0 0 10px ${glow}, 0 0 20px ${glow}`;
+    }
+
+    // Campaign Generator (your original code)
+     const youAre = ["You are explorers", "You are a team of researchers", "You are bounty hunters", "You are werecreatures", "You are a group of undead", "You are hunters", "You are a group of circus performers", "You are a group of travelers who chanced to meet on the road", "You are the villains", "You are time travelers", "You are a group of knights and their retinue", "You are detectives", "You are soldiers", "You are mercenaries", "You are bandits", "You are one big family", "You are a musical troupe", "You are thieves", "You are dragon slayers", "You are pirates", "You are sailors", "You are merchants", "You are celebrities", "You are a monarch and their retinue", "You are a group of drinking buddies", "You are members of the clergy", "You are a dream team of talented individuals", "You are treasure hunters", "You are cultists", "You are rebels", "You are slaves", "You are escaped asylum patients", "You are reformed villains", "You are friendly monsters", "You are the sole survivors of a terrible tragedy", "You are ghost hunters", "You are nomads", "You are exiles", "You are former adventurers back out of retirement", "You are clones of important people", "You are witch hunters", "You are anarchists", "You are children who ran away from home", "You are a school class on a field trip", "You are inquisitors", "You are mages", "You are archaeologists", "You are ghosts", "You are edgy teens", "You are bored trust fund kids", "You are a group of sentient objects", "You are simple tradesmen fallen on hard times", "You are drug and/or alcohol addicts", "You are a displaced inkeeper and staff", "You are androids", "You are constructs", "You are interplanar castaways", "You are smugglers", "You are immortal beings", "You are commoners disguised as nobles", "You are gamblers", "You are wanted criminals", "You are orphans", "You are beggars", "You are military deserters", "You are assassins", "You are crusaders", "You are healers", "You are prostitutes", "You are prophets", "You are duelists", "You are brawlers", "You are dragons that have taken another form", "You are crooked cops", "You are yogis", "You are monks", "You are grave robbers", "You are dwarves", "You are shapeshifters", "You are cartographers", "You are lizardfolk", "You are spies", "You are followers of a very obscure religion", "You are antique collectors", "You are caravaners", "You are merchants", "You are a professional sports team", "You are psychics", "You are sentient animals", "You are demons", "You are aliens", "You are gargoyles", "You are permanently invisible", "You are comedians", "You are animal tamers", "You are nobles disguised as commoners", "You are murderers", "You are heretics", "You are angels", "You are gods"];
     const inAWorld = ["in a traditional medieval fantasy world", "on a crewless ship that sails itself through multiple planes of existence", "in a dystopian world ruled by a totalitarian government", "in a cyberpunk future", "in a sci-fi space opera", "in an endless desert", "in a nuclear post apocalypse", "in a land that has broken out in bloody civil war", "in a world of constant feudal warfare", "in a computer simulation", "in the ruins of the modern age", "on an archipelago world", "in a steampunk sky-world", "shipwrecked on an island", "in a communist utopia where private property is banned", "on a water world", "in a land where class is determined by your ability with magic", "in World War 3", "on a world covered in perpetual winter", "in Hell", "in a magical forest", "on a world that is being invaded by aliens", "in fairy land", "at a magic academy", "in a world ruined by industrial pollution", "on a world that is being pulled apart by frequent earthquakes", "on Flat Earth", "in an underground metropolis", "on a generation spaceship in the middle of a 300 year journey", "on an uncharted continent", "in an urban fantasy Earth", "on the moon", "in a world with a hundred planets all linked by Gates", "in an excavation site of many ancient tombs and dungeons", "in Atlantis", "at boot camp", "in a world ruled by tyrannical theocracy", "in a world where everything is half as small as it should be", "in a world where everything is twice as large as it should be", "in a land whose society is run by demons", "in a land whose society is run by celestials", "in a comatose child's dreamworld", "in a land whose society is run by vampires", "in a savage tribal empire that practices human sacrifice", "in farmland in the middle of a drought", "in a land with a fungus-based ecology", "in a world where the dark lord has already won", "in a world where various planes of existence are leaking into each other", "in a reclusive cult's hidden base", "in a massive fortress said to be impenetrable", "in your newly constructed hidden base", "in a dragon's lair", "in the shadow world - a dark reflection of the world you once knew", "on a plane that is constantly being altered by its insane deity", "on a planet that is tidally locked to its sun", "in a seedy criminal underworld", "on vast plains ruled by nomadic tribes", "in a nation of orcs and goblins", "at The World Tree, surrounded by leagues and leagues of forest", "in a great costal city that has been blockaded by raiders for weeks", "an ocean world where people live on the shells of giant migratory turtles", "in a land ruled by dragons", "in a land where magic is illegal", "in a forest ruled by wood elves who live in the treetops", "in a land inhabited by giants", "in a land where all matters of honor are settled by duels", "in a cave system that leads to the planet's core", "in a world of perpetual night primarily lit by bioluminescent flora and fauna", "in an anarcho-capitalsit utopia filled with casinos and brothels", "in an extensive network of underground crypts", "in an ancient necropolis", "in the ruins of an ancient city", "on The River Styx", "in a gothic nightmare world", "in a matriarchal society where men are of the lowest class", "in a futuristic world where everything runs on magic instead of electricity and fossil fuel", "in a different place every time you wake up", "trapped in a necromancer's soul gem", "in a land ruled by wealthy cannibals who keep human slaves as livestock", "in a world of caped heroes and villains", "in a land where public displays of emotion are illegal", "in an active volcano", "in the place where a large city was supposed to be", "in a bandit camp", "in a city built in the bones of a dead kaiju", "in a town in the middle of nowhere where everyone goes insane at night", "who are trapped in a labyrinth", "in a magical fortress with endlessly looping hallways", "in a tower that reaches to the heavens", "in an abandoned alley with a magic door that leads any place you wish", "who are locked in bank vault with all the money", "in a land that uses the death penalty for even minor infractions.", "in a land where weapons and fighting are highly illegal", "on a wild frontier in the middle of a claim war", "in a land that uses the bones of the dead as currency, where grave robbery is punishable by death", "in a land that is stuck in the stone age", "in a land where social class is determined by hair color", "in a land where people worship insects", "in a land whose religion tells of the return of their gods that happens to look just like you", "in Heaven"];
     const andYouAre = ["and you are seeking a legendary treasure.", "and you are on a quest to avenge someone's death.", "and you are seeking the cure for an illness before it kills you.", "and you are just trying to get out.", "and you are hunting a legendary monster.", "and you are on the run from loan sharks.", "and you are just trying to get to a wedding.", "and you are trying to dispose of a cursed item.", "and you are trying to find your way back home.", "and you are trying to solve a murder.", "and you are planning The Big Heist.", "and you are looking for the ruins of an ancient civilization.", "and you are trying to clear your names of a crime you didn't commit.", "and you are trying to end a decades-long war.", "and you are doing something really stupid because you lost a bet.", "and you are on a humanitarian aid mission.", "and you are on a mission to do your gods holy work.", "and you are trying to stop someone from using a superweapon.", "and you are trying to stop the an evil overlord from taking over the world.", "and you are seeking your own honorable deaths.", "and you are on a quest to demonstrate feats of incredible talent.", "and you are trying to stop whatever keeps reanimating the dead.", "and you are trying to take power for yourselves.", "and you are trying to put the rightful ruler back in power.", "and you are just trying to enjoy your vacation.", "and you are trying to put the competition out of business.", "and you are tracking down books of forgotten or forbidden knowledge.", "and you are hunting demons.", "and you are tracking a lost pet.", "and you are looking for a lost family member.", "and you are trying to establish a new colony.", "and you are trying to track down the merchant who swindled you.", "and you are trying to get a friend out of jail.", "and you are trying to free the slaves.", "and you are trying to discover the function of a mysterious magical artifact.", "and you are trying to save the world from an eldritch horror.", "and you are chasing a romantic interest.", "and you are looking for the promised land.", "and you are trying to fulfill an ancient prophecy.", "and you are on a journey to prove the planet is round.", "and you are just poking around because you're curious.", "and you are seeking specialized medical care for a loved one.", "and you are in jail awaiting your own execution.", "and you are hunting down everyone who knows your secret.", "and you are trying to determine which one of you is the traitor.", "and you are on a quest to learn how to cook the perfect loaf of bread.", "and you are trying to meet your favorite celebrity.", "and you are looking for a martial arts master to teach you his ways.", "and you are on a quest to learn every song in the world.", "and you are on a journey to visit all of the places featured in your favorite book.", "and you are on a quest to reform a forgotten religion.", "and you are collecting the pieces of a legendary magical artifact.", "and you are trying to recover an irreplaceable family heirloom.", "and you are trying to get into the assassination business.", "and you are robbing targets of opportunity.", "and you are just trying not to die.", "and you are trying to make it big with a new scam.", "and you are and you are trying to start a legitimate business.", "and you are trying to sell a piece of treasure that nobody will buy because it is actually priceless.", "and you are just lurking around menacingly.", "and you are trying to get to heaven.", "and you are looking for a nice peaceful place to hang out and have some drinks.", "and you are trying to recruit a renowned hero to save your home from something terrible.", "and you are trying to start a war.", "and you are tracking down a spy.", "and you are trying to find the enemy's secret weapon so you can use it against them.", "and you are making sure that the evil overlord does indeed take over the world.", "and you are on a quest to kill the person who wrote a nasty article about you.", "and you are just trying to get laid", "and you are trying to destabilize a small nation.", "and you are fulfilling a loved one's dying request.", "and you are seeking absolution for your sins.", "and you are looking for the source of the mysterious lights in the night sky.", "and you are following instructions that you received in a vision.", "and you are bringing trade goods to market.", "and you are trying to defend yourselves against incessant bandit attacks.", "and you are trying to start your own bandit gang.", "and you are trying to destroy this entire plane of existence.", "and you are trying to depose a ruler.", "and you are trying to find the true identity of someone who wrote a mysterious book.", "and you are trying to stop an assassination attempt on your liege.", "and you are trying to avoid the wrath of a deity you have offended.", "and you are trying to start your own mercenary band.", "and you are trying to stay off the streets after losing everything.", "and you are trying to figure out what is killing the farmers' crops.", "and you are trying to adapt your restaurant's menu to serve the unusual locals.", "and you are trying to sieze the enemy's stronghold.", "and you are spying on the local ruler.", "and you are trying to turn the weather back to normal.", "and you are trying to remove the impostor that has replaced the true king.", "and you are trying to reconcile the differences between two nations so that they can join forces against the true threat.", "and you are trying to protect a child king from greedy courtiers who covet the throne.", "and you are trying to exorcise the king's new palace that he inadvertently built on an ancient burial ground.", "and you are on a quest to appease a ghost so that it will stop haunting you.", "and you are on a quest to find the end of the rainbow.", "and you are wielding a weapon of power against those who want to take it for themselves.", "and you are going to keep the little guy after all. What could it hurt?", "and you are trying to prepare the realm for a looming natural disaster.", "and you are trying to decide what to do with all the money you just inherited.", "and you are helping the forces of heaven as they try to defeat hell once and for all."];
 
@@ -212,9 +208,110 @@
       document.getElementById('campaignResult').textContent = `${x} ${y}, ${z}`;
     }
 
-    function toggleMenu() {
-      const menu = document.getElementById('menu');
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    // Fantasy Character Generator
+    const fantasyRaces = [/* ...full array... */"Human","Elf","Dwarf","Ratfolk","Lizardfolk","Catfolk","Treefolk","Angel","Demon","Dragon","Orc","Undead","Magitech Automaton","Golem","Halfling","Djinn","Gnome","Ooze","Shapeshifter","Goblin","Giant","Skeleton","Fairy","Earth Elemental","Air Elemental","Fire Elemental","Water Elemental","Naga","Harpy","Cyclops","Centaur","half (race), half (race)","sentient (animal)","Beastfolk with a humanoid body and the head of a (animal)","ghost of a (race)","(race) magically transformed into a (race)","demigod, child of a deity and a (race)","mad wizard's experimental hybrid between a (race) and a (race)"];
+    const fantasyAnimals = [/* ...full array... */"cat","dog","snake","bear","wolf","tiger","lion","elephant","rhino","porcupine","rat","hamster","raccoon","lizard","spider","bee","beetle","rabbit","horse","cow","sheep","goat","pig","donkey","chicken","duck","goose","turkey","frog","toad","mouse","squirrel","mole","bat","otter","ferret","weasel","hedgehog","fox","deer","moose","boar","badger","skunk","opossum","pigeon","seagull","swan","salamander","newt","crab","shrimp","lobster","snail","slug","tortoise","turtle","ant","worm","grasshopper","cricket","moth","butterfly","caterpillar","centipede","millipede","dove","raven","finch","parrot","macaw","canary"];
+    const fantasyClasses = [/* ...full array... */"Warrior","Cleric","Ranger","Alchemist","Animal trainer","Armorer","Noble","Orphan","Astrologer","Outlaw","Blacksmith","Caravan guard","Scribe","Shaman","Cobbler","Slave","Confidence artist","Cooper","Smuggler","Soldier","Cutpurse","Ditch digger","Squire","Trapper","Urchin","herder","miner","Wainwright","Artisan","Forester","Lumberjack","Sculptor","Ostler","Hunter","Indentured servant","Jester","Jeweler","Locksmith","Mercenary","Miller","Baker","Weaver","Wizard","Farmer","Minstrel","Grave Digger","Trader","traveling snake oil salesman","Pirate","Prisoner","Fortune teller","Bounty hunter","Cartographer","Hero","Veteran","Funeral director","Plague doctor","Physician","Runaway noble child","Highwayman","Reformed bandit","Monster tamer","Circus ringleader","Courier","Enchanter","Fighter","Paladin","Barbarian","Bard","Monk","Sorcerer","Warlock","Witch","Druid","Assassin","Rogue","Berserker","Duelist","Gunslinger","Samurai","Ninja","Necromancer","Illusionist","Elementalist","Diviner","Artificer","Summoner","Psychic","Invoker","Beastmaster","Monster Hunter","Warden","Oracle","Prophet","Templar","Inquisitor","Watchman","Tavern Keeper","Innkeeper","Fisherman","Sailor","Navigator","Shipwright","Town Guard","Militia","Executioner","Bodyguard","Diplomat","Scholar","Librarian","Spy","Informant","Acrobat","Dancer","Painter","Cook","Tailor","Tanner","Leatherworker","Potter","Glassblower","Shepherd","apprentice to a (class)","retired (class)","former (class) now working as a (class)","(class) who was fired and became a (class)","(class) pretending to be a (class)","(class) who is not very good at it","(class) banished from their guild","hunter of (race)","taxidermist obsessed with (animal)s","(class) cursed by a wizard to be a (class)"];
+    const fantasyQuests = [/* ...full array... */
+"looking for a lost relative",
+"seeking a glorious death in battle",
+"trying to make your fortune",
+"seeking a holy relic",
+"trying to kill a god",
+"trying to resurrect a god",
+"trying to resurrect a slain companion",
+"tracking down a traitor",
+"just doing some business",
+"on vacation",
+"trying to slay a dragon",
+"trying to get to a wedding",
+"trying to stop a wedding",
+"seeking vengeance for the death of your father",
+"trying to trick someone into taking your cursed item",
+"just trying to get something to eat",
+"traveling the world",
+"trying to buy some property",
+"trying to solve a murder",
+"trying to find what has been disturbing the dead",
+"trying to find a necromancer so that you can purchase a zombie assistant",
+"looking for buried treasure",
+"searching for a lost city",
+"trying to start a war",
+"trying to end a war",
+"trying to get into politics",
+"petitioning the local monarch",
+"on a pilgrimage",
+"in search of your lost love",
+"trying to gather all six shards of power",
+"looking for a friend",
+"recruiting others for your organization",
+"fleeing a wrathful lover",
+"fleeing a vengeful deity",
+"fleeing an angry monarch after you bedded their spouse",
+"trying to keep a magic item away from a dangerous cult",
+"following instructions that you received in a vision",
+"seeking absolution for your sins",
+"just trying to get laid",
+"keeping a secret",
+"unable to remember",
+"writing a book",
+"trying to find your old body",
+"looking for the perfect loaf of bread",
+"following a sketchy map",
+"lost",
+"picking flowers",
+"trying to find a way off this plane of existence",
+"trying to clear your name of a crime you didn’t commit",
+"delivering a package that you are forbidden to open",
+"returning a library book",
+"only here because you lost a bet",
+"trying to get away from your reflection",
+"trying to escape your doppelganger",
+"going to kill the person who stole your lover",
+"trying to make peace with the monsters",
+"looking for beautiful scenery to paint",
+"just sightseeing",
+"looking for rare ingredients",
+"exiled from your village",
+"trying to find the cure to a disease before it kills you",
+"migrating",
+"fleeing a drought",
+"going shopping",
+"retracing the steps of a famous adventurer",
+"on a mission from your god",
+"naked and looking for clothes",
+"attempting to stop your evil twin, who is currently (quest)",
+"seeking the bounty on a local (race) (class) who is (quest)",
+"training to become a (class)",
+"hoping to undo your last quest, where you were (quest)",
+"searching for a wizard to turn you into a (race)",
+"tracking a legendary (animal), the largest one alive",
+"trying to find your pet (animal)",
+"you set out (quest) but got sidetracked and now you’re (quest)"];
+    function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+    function resolveFantasy(str, depth = 0) {
+      if (depth > 10) return str;
+      let replaced = str
+        .replace(/\(race\)/gi, () => pick(fantasyRaces))
+        .replace(/\(class\)/gi, () => pick(fantasyClasses))
+        .replace(/\(quest\)/gi, () => pick(fantasyQuests))
+        .replace(/\(animal\)s/gi, () => pick(fantasyAnimals) + "s")
+        .replace(/\(animal\)/gi, () => pick(fantasyAnimals));
+      if (replaced !== str) return resolveFantasy(replaced, depth + 1);
+      return replaced;
+    }
+    function postProcessFantasy(sentence) {
+      sentence = sentence.replace(/\b(\w+)\s+\1\b/gi, '$1');
+      sentence = sentence.replace(/\s{2,}/g, ' ').trim();
+      return sentence.charAt(0).toUpperCase() + sentence.slice(1);
+    }
+    function generateFantasyCharacter() {
+      const race = resolveFantasy(pick(fantasyRaces));
+      const cls = resolveFantasy(pick(fantasyClasses));
+      const quest = resolveFantasy(pick(fantasyQuests)).replace(/[\s\.,!?;:]+$/, '');
+      let sentence = `You are a ${race} ${cls} and you are ${quest}.`;
+      sentence = postProcessFantasy(sentence);
+      document.getElementById('fantasyCharacterResult').textContent = sentence;
     }
   </script>
 </body>
