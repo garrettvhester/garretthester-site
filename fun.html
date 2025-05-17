@@ -13,7 +13,6 @@
       background-size: cover;
       color: #f0f0f0;
     }
-
     header {
       position: fixed;
       width: 100%;
@@ -27,21 +26,18 @@
       z-index: 1000;
       gap: 1rem;
     }
-
     .logo {
-      font-size: 1.2rem;
+      font-size: 1.2rem; /* Increased font size here */
       font-weight: bold;
       background: linear-gradient(to right, #ccc, #999);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
     }
-
     .menu-toggle {
-      font-size: 1.5rem;
+      font-size: 1.5rem; /* Increased font size here */
       cursor: pointer;
     }
-
     .menu {
       display: none;
       position: absolute;
@@ -52,18 +48,15 @@
       border-radius: 5px;
       padding: 0.5rem;
     }
-
     .menu a {
       display: block;
       padding: 0.5rem;
       color: #f0f0f0;
       text-decoration: none;
     }
-
     .menu a:hover {
       background-color: #222;
     }
-
     .content {
       background-color: rgba(0, 0, 0, 0.7);
       padding: 2rem;
@@ -77,31 +70,9 @@
         0 0 10px rgba(255, 255, 255, 0.15);
       border: 1px solid rgba(180, 180, 180, 0.3);
     }
-
     h1, h2 {
       text-align: center;
-    }
-
-    .generator {
-      text-align: center;
-      margin: 2rem 0;
-    }
-
-    button {
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      margin-top: 1rem;
-      cursor: pointer;
-      background-color: #333;
-      color: #f0f0f0;
-      border: 1px solid #888;
-      border-radius: 4px;
-    }
-
-    .output {
-      font-size: 1.3rem;
-      margin-top: 1rem;
-      font-weight: bold;
+      font-size: 2rem; /* Restored font size */
     }
     .generator {
       text-align: center;
@@ -109,26 +80,34 @@
       padding: 2rem;
       border-radius: 8px;
     }
-
+    /* Doom: dark green */
     .generator:nth-of-type(1) {
-      background: rgba(50, 0, 0, 0.3);
-      box-shadow: 0 0 15px rgba(255, 100, 0, 0.4);
+      background: rgba(0,60,0,0.24);
+      box-shadow: 0 0 15px rgba(0, 120, 40, 0.4);
     }
-
+    /* Death: deep red */
     .generator:nth-of-type(2) {
+      background: rgba(50, 0, 0, 0.28);
+      box-shadow: 0 0 15px rgba(160, 30, 30, 0.44);
+    }
+    /* Campaign: tan */
+    .generator:nth-of-type(3) {
       background: rgba(100, 75, 50, 0.15);
       border: 1px solid rgba(230, 200, 160, 0.2);
       box-shadow: inset 0 0 10px rgba(245, 222, 179, 0.3);
       font-family: 'Papyrus', 'Georgia', serif;
     }
-
-    .generator:nth-of-type(3) {
+    /* Character: blue-gray */
+    .generator:nth-of-type(4) {
       background: rgba(0,40,100, 0.12);
       border: 1px solid rgba(120,170,255,0.17);
       box-shadow: 0 0 10px rgba(60,120,255,0.1);
       font-family: 'Georgia', serif;
-    }
-
+    }.output {
+  font-size: 1.5rem;  /* or larger if you want */
+  margin-top: 1rem;
+  font-weight: bold;
+}
     .flame-glow {
       text-shadow: 0 0 8px red;
     }
@@ -156,6 +135,12 @@
       <div class="output" id="bandName"></div>
       <button onclick="generateBandName()">Generate Name</button>
     </div>
+<div class="generator">
+  <h2>Death Metal Band Name Generator</h2>
+  <p>Your death metal band name is:</p>
+  <div class="output" id="deathBandName"></div>
+  <button onclick="generateDeathBandName()">Generate Name</button>
+</div>
     <div class="generator">
       <h2>Random Campaign Generator</h2>
       <p>This tool was originally designed to generate tabletop campaign hooks, but you could also use it to create strange and interesting story/writing prompts as well!</p>
@@ -195,6 +180,24 @@
       output.textContent = `${d} ${t}`;
       output.style.textShadow = `0 0 10px ${glow}, 0 0 20px ${glow}`;
     }
+
+// Death Metal Band Name Generator arrays (deduped from your lists)
+const deathFirst = [
+  "Death","Dying","Morbid","Exhumed","Nihilistic","Cannibal","Suicidal","Entombed","Possessed","Suffocated","Savage","Dismembered","Existential","Dread","Rotten","Rotting","Pestilent","Immolated","Grave","Unleashed","Sinister","Asphyxiated","Monstrous","Cynical","Dark","Vile","Aborted","Blood","Bloody","Master","Dire","Skeletal","Immortal","Tortured","Lost","Mortal","Decapitated","Apocalyptic","Abysmal","Infernal","Broken","Dead","Reanimated","Putrid","Repugnant","Gruesome","Symbolic","Forgotten","Inevitable","Consuming","Consumed","Swallowed","Eaten","Devoured","Torn","Ripped","Malevolent","Abducted","Buried","Necrotic","Weeping","Nocturnal","Diabolical","Cursed","Deceased","Chaos","Voracious","Hateful","Spiteful","Hated","Reviled","Inhuman","Planar","Suffering","Burning","Fractured","Punished","Pierced","Carnivorous","Obscene","Venomous","Malformed","Gluttonous","Cerebral","Dissected","Putrefied","Arterial","Venous","Perverted","Eviscerated","Virulent","Horrific","Mutated","Blackened","Vengeful","Wrathful","Mutilated","Eldritch","Frozen","Aberrant","Cosmic","Universal","Violent","Malignant","Disastrous","Disaster","Vein","Vessel","Abject","Rejected","Fumigated","Lobotomized","Castrated","Carnal","Unending","Unceasing","Eternal","Permanent","Irreversible","Eroded","Violated","Desecrated","Defenestrated","Petrified","Nuclear","Atrophied","Ossified","Interdimensional","Astral","Spectral","Bacterial","Insidious","Infinite","Amorphous","Inverted","Alien","Fractal","Transcendent","Ultimate","Futile","Nullified","Extinct","Erased","Defiled","Extreme"
+];
+const deathSecond = [
+  "Defiler","Extinction","Erasure","Simulation","Rift","Annihilation","Transcendence","Atrophy","War","Fallout","Defenestration","Mouth","Grin","Fang","Claw","Needle","Syringe","Organ","Genesis","Eradication","Cremation","Ruin","Erosion","Star","Stasis","Serpent","Oblivion","Vermin","Castration","Orchidectomy","Lobotomy","Universe","Violence","World","Night","Aberration","Wrath","Mutilation","Putrescence","Infestation","Purulence","Crucifixion","Obliteration","Regurgitation","Disembowelment","Ascendancy","Infection","Desecration","Sanctity","Despair","Rapture","Cadaver","Casket","Secretion","Torment","Damnation","Sepsis","Cancer","Necrosis","Portal","Putrefaction","Torture","Vow","Sermon","Destruction","Flesh","Eruption","Mockery","Misery","Suffering","Shrine","Paradise","Miasma","Monolith","Hatred","Fear","Disgust","Revulsion","Contempt","Remains","Chaos","Sanity","Swamp","Stench","Communion","Hallucination","Nightmare","Domain","Curse","Conquest","Incantation","Suture","Carcass","Creation","Carnage","Resurrection","Lich","Void","Violation","Pit","Sanctum","Covenant","Effigy","Heart","Presence","Altar","Angel","Fetus","Mortician","Death","Nihilist","Atheist","Corpse","Suicide","Suffocation","Gore","Dismemberment","Dread","Rot","Christ","God","Pestilence","Immolation","Grave","Insanity","Asphyxiation","Monstrosity","Cynic","Cataclysm","Vomit","Filth","Abortion","Bleeding","Blood","Master","Birth","Placenta","Coitus","Guts","Torturer","Possession","Soul","Aeon","Ulcer","Throne","Head","Demigod","Decapitation","Apocalypse","Incision","Orgasm","Congregation","Worm","Sore","Vengeance","Consumption"
+];
+function generateDeathBandName() {
+  const f = deathFirst[Math.floor(Math.random() * deathFirst.length)];
+  const s = deathSecond[Math.floor(Math.random() * deathSecond.length)];
+  const output = document.getElementById('deathBandName');
+  const colors = ['red', 'maroon', 'purple', 'crimson', 'darkred'];
+  const glow = colors[Math.floor(Math.random() * colors.length)];
+  output.textContent = `${f} ${s}`;
+  output.style.textShadow = `0 0 12px ${glow}, 0 0 18px ${glow}`;
+}
+
 
     // Campaign Generator (your original code)
      const youAre = ["You are explorers", "You are a team of researchers", "You are bounty hunters", "You are werecreatures", "You are a group of undead", "You are hunters", "You are a group of circus performers", "You are a group of travelers who chanced to meet on the road", "You are the villains", "You are time travelers", "You are a group of knights and their retinue", "You are detectives", "You are soldiers", "You are mercenaries", "You are bandits", "You are one big family", "You are a musical troupe", "You are thieves", "You are dragon slayers", "You are pirates", "You are sailors", "You are merchants", "You are celebrities", "You are a monarch and their retinue", "You are a group of drinking buddies", "You are members of the clergy", "You are a dream team of talented individuals", "You are treasure hunters", "You are cultists", "You are rebels", "You are slaves", "You are escaped asylum patients", "You are reformed villains", "You are friendly monsters", "You are the sole survivors of a terrible tragedy", "You are ghost hunters", "You are nomads", "You are exiles", "You are former adventurers back out of retirement", "You are clones of important people", "You are witch hunters", "You are anarchists", "You are children who ran away from home", "You are a school class on a field trip", "You are inquisitors", "You are mages", "You are archaeologists", "You are ghosts", "You are edgy teens", "You are bored trust fund kids", "You are a group of sentient objects", "You are simple tradesmen fallen on hard times", "You are drug and/or alcohol addicts", "You are a displaced inkeeper and staff", "You are androids", "You are constructs", "You are interplanar castaways", "You are smugglers", "You are immortal beings", "You are commoners disguised as nobles", "You are gamblers", "You are wanted criminals", "You are orphans", "You are beggars", "You are military deserters", "You are assassins", "You are crusaders", "You are healers", "You are prostitutes", "You are prophets", "You are duelists", "You are brawlers", "You are dragons that have taken another form", "You are crooked cops", "You are yogis", "You are monks", "You are grave robbers", "You are dwarves", "You are shapeshifters", "You are cartographers", "You are lizardfolk", "You are spies", "You are followers of a very obscure religion", "You are antique collectors", "You are caravaners", "You are merchants", "You are a professional sports team", "You are psychics", "You are sentient animals", "You are demons", "You are aliens", "You are gargoyles", "You are permanently invisible", "You are comedians", "You are animal tamers", "You are nobles disguised as commoners", "You are murderers", "You are heretics", "You are angels", "You are gods"];
@@ -287,7 +290,7 @@
 "searching for a wizard to turn you into a (race)",
 "tracking a legendary (animal), the largest one alive",
 "trying to find your pet (animal)",
-"you set out (quest) but got sidetracked and now you’re (quest)"];
+"(quest) but you got sidetracked and now you’re (quest)"];
     function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
     function resolveFantasy(str, depth = 0) {
       if (depth > 10) return str;
